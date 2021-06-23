@@ -1,3 +1,4 @@
 export { App } from './App';
-export { LocationSearchForm } from './LocationSearchForm';
+export { SearchForm } from './SearchForm';
 export { OfferList } from './OfferList';
+export { LocationSearchInput } from './LocationSearchInput';

@@ -1,4 +1,4 @@
 import { Offer } from '../../models';
-export interface LocationSearchFormProps {
+export interface SearchFormProps {
 	onOffersChange: React.Dispatch<React.SetStateAction<Offer[]>>;
 }
