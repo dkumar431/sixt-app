@@ -66,6 +66,13 @@ export const SearchForm: React.FC<SearchFormProps> = ({
 				onError(true);
 			});
 	};
+	const shouldDisableSubmit = () => {
+		return (
+			formState.pickUpLocationPlaceId.length === 0 ||
+			formState.duration.length === 0 ||
+			formState.pickUpDateTime.length === 0
+		);
+	};
 
 	return (
 		<Styles.SearchFormWrapper>
@@ -94,7 +101,12 @@ export const SearchForm: React.FC<SearchFormProps> = ({
 				value={formState.duration}
 				onChange={inputChangeHandler}
 			/>
-			<Styles.SubmitButton onClick={searchOffers}>Search</Styles.SubmitButton>
+			<Styles.SubmitButton
+				onClick={searchOffers}
+				disabled={shouldDisableSubmit()}
+			>
+				Search
+			</Styles.SubmitButton>
 		</Styles.SearchFormWrapper>
 	);
 };

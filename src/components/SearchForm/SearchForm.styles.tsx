@@ -21,6 +21,9 @@ const SubmitButton = styled(Button)`
 	&:hover {
 		background-color: #ff0000 !important;
 	}
+	&:disabled {
+		background-color: grey !important;
+	}
 	color: white !important;
 	border-radius: 0px !important;
 	width: 100%;
