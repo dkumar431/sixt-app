@@ -1,38 +1,42 @@
 import { useReducer } from 'react';
-import { SearchFormProps, Styles } from '.';
+import { SearchFormProps, Styles, SearchFormActionTypes } from '.';
 import { LocationSearchInput } from '..';
+import {
+	initialSearchFormState,
+	searchFormReducer,
+} from './helpers/searchFormReducer';
 
 export const SearchForm: React.FC<SearchFormProps> = ({ onOffersChange }) => {
-	const initialFormState = {
-		pickUpLocation: '',
-		pickUpDateTime: '',
-		duration: '',
-	};
-
-	const searchFormReducer = (state: any, action: any) => {
-		switch (action.type) {
-			case 'HANDLE_INPUT_CHANGE':
-				return {
-					...state,
-					[action.field]: action.payload,
-				};
-			case 'RESET_TEXT_INPUT':
-				return {
-					...state,
-					...initialFormState,
-				};
-			default:
-				return state;
-		}
-	};
-
-	const [formState, dispatch] = useReducer(searchFormReducer, initialFormState);
+	const [formState, dispatch] = useReducer(
+		searchFormReducer,
+		initialSearchFormState
+	);
 
 	const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
 		dispatch({
-			type: 'HANDLE_INPUT_CHANGE',
+			type: SearchFormActionTypes.HANDLE_INPUT_CHANGE,
 			field: event.target.name,
 			payload: event.target.value,
+		});
+	};
+
+	const locationSelectHandler = (payload: any) => {
+		dispatch({
+			type: SearchFormActionTypes.HANDLE_LOCATION_CHANGE,
+			payload: payload,
+		});
+	};
+
+	const locationChangeHandler = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		const payload = {
+			pickUpLocationPlaceId: '',
+			pickUpLocation: event.target.value,
+		};
+		dispatch({
+			type: SearchFormActionTypes.HANDLE_LOCATION_CHANGE,
+			payload: payload,
 		});
 	};
 
@@ -40,7 +44,9 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onOffersChange }) => {
 		<Styles.SearchFormWrapper>
 			<LocationSearchInput
 				pickUpLocation={formState.pickUpLocation}
-				onPickUpLocationChange={inputChangeHandler}
+				pickUpLocationId={formState.pickUpLocationPlaceId}
+				onPickUpLocationChange={locationChangeHandler}
+				onPickUpLocationSelect={locationSelectHandler}
 			/>
 			<Styles.TextInput
 				id="datetime-local"

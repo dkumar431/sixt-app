@@ -1,6 +1,10 @@
 export interface Location {
-	originPlaceId: string;
-	selectedStartDate: string;
-	duration: string;
-	type: string;
+	address: string;
+	category: string;
+	city: string;
+	countryCode: string;
+	iataCode: string;
+	id: number;
+	label: string;
+	placeId: string;
 }
