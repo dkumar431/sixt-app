@@ -11,6 +11,7 @@ export class LocationService {
 			locations = response.data;
 		} catch (error) {
 			console.error(error);
+			throw error;
 		}
 
 		return locations;

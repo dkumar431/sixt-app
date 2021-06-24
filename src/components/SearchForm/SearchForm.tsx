@@ -1,12 +1,18 @@
 import { useReducer } from 'react';
 import { SearchFormProps, Styles, SearchFormActionTypes } from '.';
 import { LocationSearchInput } from '..';
+import { OfferRequest } from '../../models';
+import { locationService } from '../../services';
 import {
 	initialSearchFormState,
 	searchFormReducer,
 } from './helpers/searchFormReducer';
 
-export const SearchForm: React.FC<SearchFormProps> = ({ onOffersChange }) => {
+export const SearchForm: React.FC<SearchFormProps> = ({
+	onOffersChange,
+	onLoading,
+	onError,
+}) => {
 	const [formState, dispatch] = useReducer(
 		searchFormReducer,
 		initialSearchFormState
@@ -40,6 +46,27 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onOffersChange }) => {
 		});
 	};
 
+	const searchOffers = () => {
+		onLoading(true);
+		const offerRequestPayload: OfferRequest = {
+			originPlaceId: formState.pickUpLocationPlaceId,
+			selectedStartDate: formState.pickUpDateTime,
+			duration: formState.duration,
+			type: 'DURATION',
+		};
+		locationService
+			.getOffersByLocationId(offerRequestPayload)
+			.then(offers => {
+				console.log('offers', offers);
+				onOffersChange(offers);
+				onLoading(false);
+			})
+			.catch(error => {
+				onLoading(false);
+				onError(true);
+			});
+	};
+
 	return (
 		<Styles.SearchFormWrapper>
 			<LocationSearchInput
@@ -67,7 +94,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({ onOffersChange }) => {
 				value={formState.duration}
 				onChange={inputChangeHandler}
 			/>
-			<Styles.SubmitButton>Search</Styles.SubmitButton>
+			<Styles.SubmitButton onClick={searchOffers}>Search</Styles.SubmitButton>
 		</Styles.SearchFormWrapper>
 	);
 };

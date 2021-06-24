@@ -6,6 +6,7 @@ export interface OfferRequest {
 }
 
 export interface Offer {
+	finalAmountGross: number;
 	reservationAmounts: {
 		finalRidePriceNet: number;
 		finalRidePriceGross: number;
@@ -49,4 +50,40 @@ export interface Offer {
 	sixtCustomerNumber: number;
 	group: string;
 	isPreselected: boolean;
+	vehicleType: {
+		airportFreeWaitingTime: number;
+		benefits: string[];
+		brand: string;
+		brandTermsAndConditions: null;
+		category: string;
+		class: string;
+		code: string;
+		defaultFreeWaitingTime: number;
+		description: string;
+		id: number;
+		imageType: string;
+		images: {
+			hdpi: string;
+			mdpi: string;
+			native: string;
+			web: string;
+			x1: string;
+			x2: string;
+			x3: string;
+			xhdpi: string;
+			xxhdpi: string;
+		};
+		logo: {};
+		marketingImages: [];
+		milesRedemption: boolean;
+		mobileLogo: null;
+		name: string;
+		nrOfBaggage: number;
+		nrOfPassengers: number;
+		onDemand: false;
+		onDemandCapability: string;
+		priceVary: false;
+		roamingType: string;
+		title: string;
+	};
 }

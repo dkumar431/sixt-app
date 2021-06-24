@@ -1,6 +1,8 @@
 import { Offer } from '../../models';
 export interface SearchFormProps {
-	onOffersChange: React.Dispatch<React.SetStateAction<Offer[]>>;
+	onOffersChange: React.Dispatch<React.SetStateAction<Offer[] | null>>;
+	onLoading: React.Dispatch<React.SetStateAction<boolean>>;
+	onError: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface SearchFormFields {
