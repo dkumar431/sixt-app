@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
 import { SearchForm, OfferList } from '../';
-import { Offer } from '../../models';
 import { Styles } from './';
+import { Offer } from '../../models';
 
 export const App = () => {
 	const [offers, setOffers] = useState<Offer[] | null>(null);
